@@ -5,7 +5,7 @@
   fontsize        = 17L,
   legend.cex      = 1.25,
   axis.title.cex  = 1.2,
-  family          = NULL,
+  family          = c("sans"),
   legend.coordinates = list(left = .15,
                             mid = .5,
                             right = .8,
