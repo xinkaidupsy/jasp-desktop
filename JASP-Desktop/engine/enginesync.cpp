@@ -436,9 +436,10 @@ QProcess * EngineSync::startSlaveProcess(int no)
 #define ARCH_SUBPATH "x64"
 #endif
 
-	env.insert("PATH",				programDir.absoluteFilePath("R\\library\\RInside\\libs\\" ARCH_SUBPATH) + ";" + programDir.absoluteFilePath("R\\library\\Rcpp\\libs\\" ARCH_SUBPATH) + ";" + programDir.absoluteFilePath("R\\bin\\" ARCH_SUBPATH) + ";" + env.value("PATH")) ;
+	auto longToShort = [](QString in) -> QString { return QString::fromStdWString(Utils::getShortPathWin(in.toStdWString())); };
+	env.insert("PATH",				longToShort(programDir.absoluteFilePath("R\\library\\RInside\\libs\\" ARCH_SUBPATH)) + ";" + longToShort(programDir.absoluteFilePath("R\\library\\Rcpp\\libs\\" ARCH_SUBPATH)) + ";" + longToShort(programDir.absoluteFilePath("R\\bin\\" ARCH_SUBPATH)) + ";" + env.value("PATH")) ;
 	env.insert("R_HOME",			rHomeWin);
-	env.insert("JAGS_HOME",			programDir.absoluteFilePath("JAGS/"));
+	env.insert("JAGS_HOME",			longToShort(programDir.absoluteFilePath("JAGS/")));
 
 #undef ARCH_SUBPATH
 
