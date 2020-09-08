@@ -77,7 +77,9 @@ void STDCALL jaspRCPP_init(const char* buildYear, const char* version, RBridgeCa
 	_logWriteFunction		= logWriteFunction;
 	_sendToDesktop			= sendToDesktopFunction;
 
+	jaspRCPP_logString("Getting ready for RInside");
 	rinside = new RInside();
+	jaspRCPP_logString("RInside created");
 
 	RInside &rInside = rinside->instance();
 
@@ -117,11 +119,11 @@ void STDCALL jaspRCPP_init(const char* buildYear, const char* version, RBridgeCa
 	rInside[".returnDataFrame"]					= Rcpp::InternalFunction(&jaspRCPP_returnDataFrame);
 	rInside[".columnIsOrdinal"]					= Rcpp::InternalFunction(&jaspRCPP_columnIsOrdinal);
 	rInside[".columnIsNominal"]					= Rcpp::InternalFunction(&jaspRCPP_columnIsNominal);
-	rInside[".encodeColNamesStrict"]			= Rcpp::InternalFunction(&jaspRCPP_encodeColumnName);
-	rInside[".decodeColNamesStrict"]			= Rcpp::InternalFunction(&jaspRCPP_decodeColumnName);
-	rInside[".columnIsNominalText"]				= Rcpp::InternalFunction(&jaspRCPP_columnIsNominalText);
 	rInside[".encodeColNamesLax"]				= Rcpp::InternalFunction(&jaspRCPP_encodeAllColumnNames);
 	rInside[".decodeColNamesLax"]				= Rcpp::InternalFunction(&jaspRCPP_decodeAllColumnNames);
+	rInside[".columnIsNominalText"]				= Rcpp::InternalFunction(&jaspRCPP_columnIsNominalText);
+	rInside[".encodeColNamesStrict"]			= Rcpp::InternalFunction(&jaspRCPP_encodeColumnName);
+	rInside[".decodeColNamesStrict"]			= Rcpp::InternalFunction(&jaspRCPP_decodeColumnName);
 	rInside[".setColumnDataAsScale"]			= Rcpp::InternalFunction(&jaspRCPP_setColumnDataAsScale);
 	rInside[".readFullDatasetToEnd"]			= Rcpp::InternalFunction(&jaspRCPP_readFullDataSet);
 	rInside[".readDatasetToEndNative"]			= Rcpp::InternalFunction(&jaspRCPP_readDataSetSEXP);
@@ -139,7 +141,6 @@ void STDCALL jaspRCPP_init(const char* buildYear, const char* version, RBridgeCa
 	rInside[".requestSpecificFileNameNative"]	= Rcpp::InternalFunction(&jaspRCPP_requestSpecificFileNameSEXP);
 
 	rInside.parseEvalQNT(".outputSink <- .createCaptureConnection(); sink(.outputSink); print('.outputSink initialized!'); sink();");
-
 
 	static const char *baseCitationFormat	= "JASP Team (%s). JASP (Version %s) [Computer software].";
 	char baseCitation[200];
@@ -172,7 +173,7 @@ void STDCALL jaspRCPP_init(const char* buildYear, const char* version, RBridgeCa
 
 	_R_HOME = Rcpp::as<std::string>(jaspRCPP_parseEval("R.home('')"));
 
-	std::cout << "R_HOME: " << _R_HOME << std::endl;
+	jaspRCPP_logString("R_HOME: " + _R_HOME);
 
 #ifdef __APPLE__
 	jaspRCPP_parseEvalQNT("options(jags.moddir=paste0(Sys.getenv('JAGS_HOME'),'/modules-4'))");
