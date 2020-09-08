@@ -48,7 +48,7 @@ QString AppDirs::help()
 
 QString AppDirs::analysisDefaultsDir()
 {
-	QString path = QString::fromStdString(Dirs::appDataDir()) + "/AnalysisDefaults";
+	QString path = appData(); + "/AnalysisDefaults";
 	QDir dir(path);
 	dir.mkpath(".");
 
@@ -57,7 +57,7 @@ QString AppDirs::analysisDefaultsDir()
 
 QString AppDirs::userRLibrary()
 {
-	QString path = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+	QString path = appData();
 	path += "/libraryR/";
 
 	return path;
@@ -65,7 +65,7 @@ QString AppDirs::userRLibrary()
 
 QString AppDirs::modulesDir()
 {
-	QString path = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+	QString path = appData();
 	path += "/Modules/";
 
 	return path;
@@ -73,12 +73,12 @@ QString AppDirs::modulesDir()
 
 QString AppDirs::documents()
 {
-	return QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
+	return QString::fromStdWString(Utils::getShortPathWin(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation).toStdWString()));
 }
 
 QString AppDirs::logDir()
 {
-	QString path = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+	QString path = appData();
 	path += "/Logs/";
 
 	QDir log(path);
@@ -91,5 +91,5 @@ QString AppDirs::logDir()
 
 QString AppDirs::appData()
 {
-	return QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+	return QString::fromStdWString(Utils::getShortPathWin(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation).toStdWString()));
 }
