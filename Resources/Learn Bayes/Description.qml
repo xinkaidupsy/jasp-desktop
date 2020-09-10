@@ -14,21 +14,44 @@ Description
 	website:		"jasp-stats.org"
 	license:		"GPL (>= 2)"
 
+	Package { name: "HDInterval" }
+	Package { name: "DT" }
 	GroupTitle
 	{
-		title:	qsTr("Counts")
+		title: 	"Counts"
 		icon:	"analysis-bayesian-crosstabs.svg"
 	}
-
+	
 	Analysis
 	{
-		title:	qsTr("Binomial Estimation")
+		title:	"Binomial Estimation"
+		qml:	"LSbinomialestimation.qml"
 		func:	"LSbinomialestimation"
 	}
 
 	Analysis
 	{
-		title:	qsTr("Binomial Testing")
+		title:	"Binomial Testing"
+		qml:	"LSbinomialtesting.qml"
 		func:	"LSbinomialtesting"
+	}
+
+	GroupTitle
+	{
+		title: 	"Problem of Points"
+	}
+	
+	Analysis
+	{
+		title:	"Game of Chance"
+		qml:	"LSgameofchance.qml"
+		func:	"LSgameofchance"
+	}
+
+	Analysis
+	{
+		title:	"Game of Skills"
+		qml:	"LSgameofskills.qml"
+		func:	"LSgameofskills"
 	}
 }
