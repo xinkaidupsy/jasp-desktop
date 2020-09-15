@@ -165,7 +165,7 @@ compare_function4 <- function(k,t,alpha,simulation){
 
 
 
-LSgameofskills   <- function(jaspResults, dataset, options, state = NULL){
+LSgameofskill   <- function(jaspResults, dataset, options, state = NULL){
   ## some transformation to match previous code
   input <- list(
     "n"     = length(options[["players"]]),

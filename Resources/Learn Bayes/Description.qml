@@ -18,7 +18,7 @@ Description
 	Package { name: "DT" }
 	GroupTitle
 	{
-		title: 	"Counts"
+		title:	"Counts"
 		icon:	"analysis-bayesian-crosstabs.svg"
 	}
 	
@@ -38,7 +38,8 @@ Description
 
 	GroupTitle
 	{
-		title: 	"Problem of Points"
+		title:	"The Problem of Points"
+        icon:	"learn-bayes-epees.svg"
 	}
 	
 	Analysis
@@ -50,8 +51,8 @@ Description
 
 	Analysis
 	{
-		title:	"Game of Skills"
-		qml:	"LSgameofskills.qml"
-		func:	"LSgameofskills"
+		title:	"Game of Skill"
+		qml:	"LSgameofskill.qml"
+		func:	"LSgameofskill"
 	}
 }

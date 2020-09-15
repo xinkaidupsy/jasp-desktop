@@ -245,5 +245,6 @@
         <file>icons/MixedModels_bayesian.svg</file>
         <file>icons/MixedModels_classical.svg</file>
         <file>icons/learn-bayes.svg</file>
+        <file>icons/learn-bayes-epees.svg</file>
     </qresource>
 </RCC>
