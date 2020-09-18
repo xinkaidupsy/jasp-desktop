@@ -41,9 +41,8 @@ linux {
 DEPENDPATH = ..
 INCLUDEPATH += ../JASP-Common/
 
-#exists(/app/lib/*) should only be true when building flatpak
-exists(/app/lib/*)	{ target.path += /app/bin }
-else                { target.path += /usr/bin }
+target.path += $$INSTALLPATH
+
 
 INSTALLS += target
 
