@@ -21,6 +21,6 @@
 auditBayesianEvaluation <- function(jaspResults, dataset, options, ...){
 
   # For the evaluation constituents, see auditCommonFunctions.R
-  .auditEvaluationStage(options, jaspResults, type = "bayesian", workflow = FALSE)
+  .auditEvaluationStage(options, jaspResults, workflow = FALSE)
   
 }

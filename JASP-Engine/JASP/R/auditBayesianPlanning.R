@@ -21,6 +21,6 @@
 auditBayesianPlanning <- function(jaspResults, dataset, options, ...){
 
   # For the planning constituents, see auditCommonFunctions.R
-  .auditPlanningStage(options, jaspResults, type = "bayesian", workflow = FALSE)
+  .auditPlanningStage(options, jaspResults, workflow = FALSE)
   
 }
