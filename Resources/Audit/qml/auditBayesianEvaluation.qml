@@ -226,7 +226,7 @@ Form
 		{
 			id: 								auditResult
 			name: 								"auditResult"
-			title: 								variableTypeAuditValues.checked ? qsTr("Soll Values") : qsTr("Audit Result")
+			title: 								variableTypeAuditValues.checked ? qsTr("Soll Position") : qsTr("Audit Result")
 			singleVariable: 					true
 			allowedColumns: 					["nominal", "scale"]
 		}
@@ -235,7 +235,7 @@ Form
 		{
 			id: 								monetaryVariable
 			name: 								"monetaryVariable"
-			title: 								variableTypeAuditValues.checked ? qsTr("Ist Values <i>(required)</i>") : qsTr("Ist Values <i>(optional)</i>")
+			title: 								variableTypeAuditValues.checked ? qsTr("Ist Position <i>(required)</i>") : qsTr("Ist Position <i>(optional)</i>")
 			singleVariable: 					true
 			allowedColumns: 					["scale"]
 		}

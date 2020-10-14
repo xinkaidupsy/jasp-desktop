@@ -247,7 +247,7 @@ Form
 		{
 			id: 								monetaryVariable
 			name: 								"monetaryVariable"
-			title: 								variableTypeAuditValues.checked ? qsTr("Ist Values <i>(required)</i>") : qsTr("Ist Values <i>(optional)</i>")
+			title: 								variableTypeAuditValues.checked ? qsTr("Ist Position <i>(required)</i>") : qsTr("Ist Position <i>(optional)</i>")
 			singleVariable: 					true
 			allowedColumns: 					["scale"]
 		}

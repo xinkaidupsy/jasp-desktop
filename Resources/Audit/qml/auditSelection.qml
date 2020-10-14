@@ -57,7 +57,7 @@ Form
 		{
 			id:									monetaryVariable
 			name:								"monetaryVariable"
-			title:								musSampling.checked ? qsTr("Ist Values") : qsTr("Ist Values <i>(optional)</i>")
+			title:								musSampling.checked ? qsTr("Ist Position") : qsTr("Ist Position <i>(optional)</i>")
 			singleVariable:						true
 			allowedColumns:						["scale"]
 			allowAnalysisOwnComputedColumns: 	false

@@ -270,7 +270,7 @@ Form
 			{
 				id: 								monetaryVariable
 				name: 								"monetaryVariable"
-				title: 								materialityAbsolute.checked ? qsTr("Ist Values <i>(required)</i>") : qsTr("Ist Values <i>(optional)</i>")
+				title: 								materialityAbsolute.checked ? qsTr("Ist Position <i>(required)</i>") : qsTr("Ist Position <i>(optional)</i>")
 				singleVariable: 					true
 				allowedColumns: 					["scale"]
 				onCountChanged:								
@@ -681,9 +681,9 @@ Form
 				anchors.right: 						parent.right
 				text: 								qsTr("<b>To Selection</b>")
 				enabled: 							!samplingChecked.checked & ((materialityRelative.checked ?
-													materialityPercentage.value != "0" & recordNumberVariable.count > 0 :
-													materialityValue.value 		!= "0" & recordNumberVariable.count > 0 & monetaryVariable.count > 0) |
-													(minimumPrecision.checked & minimumPrecisionPercentage.value != "0" & recordNumberVariable.count > 0))
+													materialityPercentage.value > 0 & recordNumberVariable.count > 0 :
+													materialityValue.value > 0 & recordNumberVariable.count > 0 & monetaryVariable.count > 0) |
+													(minimumPrecision.checked & minimumPrecisionPercentage.value > 0 & recordNumberVariable.count > 0))
 				onClicked:							samplingChecked.checked	= true
 			}
 		}

@@ -1142,7 +1142,7 @@
                                                     position = 1)
 
       if(!options[["performanceMateriality"]] && !options[["minimumPrecision"]]){
-        procedureText <- gettextf("Select one or more sampling objectives from the top left corner to begin planning an audit sample.\n\n%1$s <b>Test against a performance materiality</b>\n\nEnable this objective if you want to <i>test</i> whether the total misstatement in the population exceeds a certain limit (i.e., the performance materiality) based on a sample. This approach allows you to plan a sample such that, when the sample meets your expectations, the maximum error is said to be below performance materiality. In the evaluation you will be able to quantify the evidence that your sample contains for or against the statement that the population misstatement does not exceed the performance materiality.\n\n%2$s <b>Obtain a required precision</b>\n\nEnable this objective if you want to obtain a required minimum precision when <i>estimating</i> the total misstatement in the population based on a sample. This approach allows you to plan a sample such that, when the sample meets expectations, the accuracy of your estimate is below a tolerable percentage. In the evaluation you will be able to quantify the accuracy of your estimate of the population misstatement.", "\u25CF", "\u25CF")
+        procedureText <- gettextf("Select one or more sampling objectives from the top left corner to begin planning an audit sample.\n\n%1$s <b>Test against a performance materiality</b>\n\nEnable this objective if you want to <i>test</i> whether the total misstatement in the population exceeds a certain limit (i.e., the performance materiality) based on a sample. This approach allows you to plan a sample such that, when the sample meets your expectations, the maximum error is said to be below performance materiality. In the evaluation you will be able to quantify the evidence that your sample contains for or against the statement that the population misstatement does not exceed the performance materiality.\n\n%2$s <b>Obtain a required minimum precision</b>\n\nEnable this objective if you want to obtain a required minimum precision when <i>estimating</i> the total misstatement in the population based on a sample. This approach allows you to plan a sample such that, when the sample meets expectations, the accuracy of your estimate is below a tolerable percentage. In the evaluation you will be able to quantify the accuracy of your estimate of the population misstatement.", "\u25CF", "\u25CF")
       } else if(options[["performanceMateriality"]] && !options[["minimumPrecision"]]){
         procedureText <- gettextf("The objective of this audit sampling procedure is to determine with a specified confidence <b>(%1$s)</b> whether the %2$s of misstatement in the population is lower than the specified performance materiality of <b>%3$s</b>.",
                                   stageOptions[["confidenceLabel"]],
@@ -4445,14 +4445,14 @@
 		m_unseen <- planningOptions[["populationValue"]] - m_seen
 
 		if(options[["expectedErrors"]] == "expectedAllPossible"){
-		a <- prior$aPrior + 0:n
-		b <- prior$bPrior + n - 0:n
+			a <- prior$aPrior + 0:n
+			b <- prior$bPrior + n - 0:n
 		} else if(options[["expectedErrors"]] == "expectedRelative"){
-		a <- prior$aPrior + 0:ceiling(n * (planningOptions[["expectedErrors"]] * 2))
-		b <- prior$bPrior + n - 0:ceiling(n * (planningOptions[["expectedErrors"]] * 2))
+			a <- prior$aPrior + 0:ceiling(n * (planningOptions[["expectedErrors"]] * 2))
+			b <- prior$bPrior + n - 0:ceiling(n * (planningOptions[["expectedErrors"]] * 2))
 		} else if(options[["expectedErrors"]] == "expectedAbsolute"){
-		a <- prior$aPrior + 0:ceiling(planningOptions[["expectedErrors"]] * 2)
-		b <- prior$bPrior + n - 0:ceiling(planningOptions[["expectedErrors"]] * 2)
+			a <- prior$aPrior + 0:ceiling(planningOptions[["expectedErrors"]] * 2)
+			b <- prior$bPrior + n - 0:ceiling(planningOptions[["expectedErrors"]] * 2)
 		}
 
 		v95 <- qbeta(options[["confidence"]], a, b)

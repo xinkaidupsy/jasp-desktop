@@ -6,7 +6,7 @@ Description
 	name				: "jaspAudit"
 	title				: qsTr("Audit")
 	description			: qsTr("JASP for Audit (JfA) is an officially supported add-on module that is designed specifically with the auditor in mind. JfA helps the auditor in interpreting, explaining, and reporting the analyses and leaves a transparent audit trail.")
-	version				: "0.1"
+	version				: "0.3.1"
 	author				: "Koen Derks, Jacques de Swart, Eric-Jan Wagenmakers, Jan Wille & Ruud Wetzels"
 	maintainer			: "Koen Derks <k.derks@nyenrode.nl>"
 	website				: "www.github.com/koenderks/jfa"
@@ -16,7 +16,7 @@ Description
 	Package 
 	{ 
 		name:			"jfa"
-		version:		"0.3.0" 
+		version:		"0.3.1" 
 	}
 
 	GroupTitle
