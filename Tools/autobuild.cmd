@@ -312,7 +312,7 @@ echo Melting and Coalescing MSI
 
 cd %JASP_BASE_DIR%\%JASP_WIX_DIR%
 
-SET MERGEMODULENAME=Microsoft_VC141_CRT_%WIXARCH%.msm
+SET MERGEMODULENAME=Microsoft_VC142_CRT_%WIXARCH%.msm
 
 echo VCToolsRedistDir: "%VCToolsRedistDir%"
 
