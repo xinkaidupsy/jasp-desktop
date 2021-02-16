@@ -1169,7 +1169,9 @@ bool jaspRCPP_checkRBasedWhitelist(const char * rCode, const char ** error)
 	
 	Rcpp::List validationResult = jaspRCPP_parseEval("jaspBase:::rCodeValidator(.validateThis)");
 	
-	static std::string errorStorage = Rcpp::as<std::string>(validationResult["reason"]);
+	static std::string errorStorage;
+	
+	errorStorage = Rcpp::as<std::string>(validationResult["reason"]);
 	
 	*error = errorStorage.c_str();
 	
