@@ -103,6 +103,7 @@ extern "C" {
 	void freeRBridgeColumnDescription(RBridgeColumnDescription* columns, size_t colMax);
 	void freeLabels(char** labels, size_t nbLabels);
 
+	void				rbridge_checkRWhitelist(				const std::string & code);
 	std::vector<bool>	rbridge_applyFilter(					const std::string & filterCode, const std::string & generatedFilterCode);
 	std::string			rbridge_encodeColumnNamesInScript(		const std::string & filterCode);
 	std::string			rbridge_evalRCodeWhiteListed(			const std::string & rCode);

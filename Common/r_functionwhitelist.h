@@ -17,12 +17,13 @@ public:
 class R_FunctionWhiteList
 {
 private:
-	///The following functions (and keywords that can be followed by a '(') will be allowed in user-entered R-code, such as filters or computed columns. This is for security because otherwise JASP-files could become a attack-vector (which doesn't refer to an R-datatype).
-	static const std::set<std::string> functionWhiteList;
 	static const std::string functionPrecedingCharacter, functionStartDelimit, functionNameStart, functionNameBody, operatorsR;
 	static const std::regex functionNameMatcher, functionNamePrecederMatcher, assignmentWhiteListedRightMatcher, assignmentWhiteListedLeftMatcher, assignmentOperatorRightMatcher, assignmentOperatorLeftMatcher;
 
 public:
+	///The following functions (and keywords that can be followed by a '(') will be allowed in user-entered R-code, such as filters or computed columns. This is for security because otherwise JASP-files could become a attack-vector (which doesn't refer to an R-datatype).
+	static const std::set<std::string> functionWhiteList;
+	
 	///throws a filterexception if the script is not legal for some reason
 	static void scriptIsSafe(std::string const & script);
 

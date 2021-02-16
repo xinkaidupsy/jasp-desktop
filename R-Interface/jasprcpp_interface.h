@@ -138,6 +138,8 @@ RBRIDGE_TO_JASP_INTERFACE int			STDCALL jaspRCPP_runFilter(const char * filterco
 RBRIDGE_TO_JASP_INTERFACE void			STDCALL jaspRCPP_freeArrayPointer(bool ** arrayPointer);
 RBRIDGE_TO_JASP_INTERFACE void			STDCALL jaspRCPP_runScript(const char * scriptCode);
 RBRIDGE_TO_JASP_INTERFACE const char *	STDCALL jaspRCPP_runScriptReturnString(const char * scriptCode);
+RBRIDGE_TO_JASP_INTERFACE void			STDCALL jaspRCPP_addWhitelistedFunction(const char * functionName);
+RBRIDGE_TO_JASP_INTERFACE bool			STDCALL jaspRCPP_checkRBasedWhitelist(const char * rCode, const char ** error);
 
 RBRIDGE_TO_JASP_INTERFACE const char*	STDCALL jaspRCPP_getLastErrorMsg();
 RBRIDGE_TO_JASP_INTERFACE void			STDCALL jaspRCPP_resetErrorMsg();

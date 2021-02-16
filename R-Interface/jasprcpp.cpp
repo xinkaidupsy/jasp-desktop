@@ -68,7 +68,9 @@ static libraryFixerDef			_libraryFixerFunc		= nullptr;
 
 static std::string				_R_HOME = "";
 
-bool shouldCrashSoon = false; //Simply here to allow a developer to force a crash
+bool _shouldCrashSoon = false; //Simply here to allow a developer to force a crash
+
+std::set<void*> _whitelistedRFunctions;
 
 extern "C" {
 void STDCALL jaspRCPP_init(const char* buildYear, const char* version, RBridgeCallBacks* callbacks,
@@ -136,6 +138,7 @@ void STDCALL jaspRCPP_init(const char* buildYear, const char* version, RBridgeCa
 	rInside[".readFilterDatasetToEnd"]			= Rcpp::InternalFunction(&jaspRCPP_readFilterDataSet);
 	rInside[".setColumnDataAsOrdinal"]			= Rcpp::InternalFunction(&jaspRCPP_setColumnDataAsOrdinal);
 	rInside[".setColumnDataAsNominal"]			= Rcpp::InternalFunction(&jaspRCPP_setColumnDataAsNominal);
+	rInside[".isRFunctionInWhitelist"]			= Rcpp::InternalFunction(&jaspRCPP_isRFunctionInWhitelist);
 	rInside[".readDataSetHeaderNative"]			= Rcpp::InternalFunction(&jaspRCPP_readDataSetHeaderSEXP);
 	rInside[".createCaptureConnection"]			= Rcpp::InternalFunction(&jaspRCPP_CreateCaptureConnection);
 	rInside[".postProcessLibraryModule"]		= Rcpp::InternalFunction(&jaspRCPP_postProcessLocalPackageInstall);
@@ -1037,10 +1040,10 @@ Rcpp::IntegerVector jaspRCPP_makeFactor(Rcpp::IntegerVector v, char** levels, in
 	return droplevels(Rcpp::_["x"] = v);
 }
 
-void jaspRCPP_crashPlease() { shouldCrashSoon = true; }
+void jaspRCPP_crashPlease() { _shouldCrashSoon = true; }
 void jaspRCPP_checkForCrashRequest()
 {
-	if(shouldCrashSoon)
+	if(_shouldCrashSoon)
 		throw std::runtime_error("User requested a crash");
 }
 
@@ -1145,9 +1148,35 @@ SEXP jaspRCPP_RunSeparateR(SEXP code)
 	return Rcpp::wrap(out);
 }
 
-// see https://gcc.gnu.org/onlinedocs/gcc-4.8.5/cpp/Stringification.html
-#define xstr(s) str(s)
-#define str(s)  #s
+void jaspRCPP_addWhitelistedFunction(const char * functionName)
+{
+	SEXP symbol = PROTECT(Rf_install(functionName)); //Looks up the symbol for functionName if it exists and otherwise crashes the engine pretty hard. Might not be ideal?
+	SEXP func	= PROTECT(Rf_findFun(symbol, R_GlobalEnv));
+	
+	_whitelistedRFunctions.insert(static_cast<void*>(func)); //Should be fine no?
+	
+	UNPROTECT(2);
+}
+
+bool jaspRCPP_isRFunctionInWhitelist(SEXP functionObj)
+{
+	return _whitelistedRFunctions.count(static_cast<void*>(functionObj));
+}
+
+bool jaspRCPP_checkRBasedWhitelist(const char * rCode, const char ** error)
+{
+	(*rinside)[".validateThis"] = rCode;
+	
+	Rcpp::List validationResult = jaspRCPP_parseEval("jaspBase:::rCodeValidator(.validateThis)");
+	
+	static std::string errorStorage = Rcpp::as<std::string>(validationResult["reason"]);
+	
+	*error = errorStorage.c_str();
+	
+	(*rinside)[".validateThis"] = "";
+	
+	return Rcpp::as<bool>(validationResult["pass"]);
+}
 
 void jaspRCPP_postProcessLocalPackageInstall(SEXP moduleLibrary)
 {

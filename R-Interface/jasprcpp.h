@@ -38,6 +38,7 @@ SEXP jaspRCPP_requestTempRootNameSEXP();
 SEXP jaspRCPP_requestStateFileNameSEXP();
 SEXP jaspRCPP_allColumnNamesDataset(SEXP encoded);
 SEXP jaspRCPP_RunSeparateR(SEXP code);
+bool jaspRCPP_isRFunctionInWhitelist(SEXP functionObj);
 
 				//Custom parseEvals to make sure sink is set (to capture output)
 void			jaspRCPP_parseEvalQNT(const std::string & code,	bool preface = true);
@@ -49,10 +50,10 @@ bool jaspRCPP_requestSpecificRelativeFilePath(std::string specificFilename, std:
 bool jaspRCPP_requestJaspResultsRelativeFilePath(							std::string & root, std:: string & relativePath);
 
 void jaspRCPP_returnDataFrame(Rcpp::DataFrame frame);
-void jaspRCPP_returnString(SEXP Message);
-void jaspRCPP_setRWarning(SEXP Message);
-void jaspRCPP_setRError(SEXP Message);
-void jaspRCPP_setLog(SEXP Message);
+void jaspRCPP_returnString(	SEXP Message);
+void jaspRCPP_setRWarning(	SEXP Message);
+void jaspRCPP_setRError(	SEXP Message);
+void jaspRCPP_setLog(		SEXP Message);
 
 std::string jaspRCPP_encodeColumnName(		std::string in);
 std::string jaspRCPP_decodeColumnName(		std::string in);
@@ -79,7 +80,7 @@ bool _jaspRCPP_setColumnDataAsNominalText(	std::string columnName,	Rcpp::Vector<
 
 void jaspRCPP_setColumnDataHelper_FactorsLevels(Rcpp::Vector<INTSXP> data, int *& outputData, size_t & numLevels, const char **& labelPointers, std::string *& labels);
 
-//Calls from JASPresult (from R)
+//Calls from jaspResults (from R)
 typedef void (*sendFuncDef)(const char *);
 
 RBridgeColumnType* jaspRCPP_marshallSEXPs(SEXP columns, SEXP columnsAsNumeric, SEXP columnsAsOrdinal, SEXP columnsAsNominal, SEXP allColumns, size_t * colMax);

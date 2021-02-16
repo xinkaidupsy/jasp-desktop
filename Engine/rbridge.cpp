@@ -110,7 +110,10 @@ void rbridge_init(sendFuncDef sendToDesktopFunction, pollMessagesFuncDef pollMes
 					rbridge_moduleLibraryFixer
 	);
 	JASPTIMER_STOP(jaspRCPP_init);
-
+	
+	//Now that R is loaded we can make a set of whitelisted R functions.
+	for(const std::string & whitelistedFunc : R_FunctionWhiteList::functionWhiteList)
+		jaspRCPP_addWhitelistedFunction(whitelistedFunc.c_str());
 }
 
 void rbridge_setDataSetSource(			boost::function<DataSet* ()> source)												{	rbridge_dataSetSource			= source; }
@@ -835,6 +838,15 @@ void rbridge_detachRCodeEnv(const std::string & dataname)
 	jaspRCPP_runScript(detacher.c_str());	//and afterwards we make sure it is detached to avoid superfluous messages and possible clobbering of analyses
 }
 
+void rbridge_checkRWhitelist(const std::string & code)
+{
+	R_FunctionWhiteList::scriptIsSafe(code);
+	
+	const char * errorFromRWhitelist;
+	if(!jaspRCPP_checkRBasedWhitelist(code.c_str(), &errorFromRWhitelist))
+		throw filterException(errorFromRWhitelist);	
+}
+
 std::vector<bool> rbridge_applyFilter(const std::string & filterCode, const std::string & generatedFilterCode)
 {
 	rbridge_dataSet = rbridge_dataSetSource();
@@ -852,7 +864,7 @@ std::vector<bool> rbridge_applyFilter(const std::string & filterCode, const std:
 	std::string	concatenated = generatedFilterCode + "\n" + filterCode,
 				filter64	 = "local({" + rbridge_encodeColumnNamesInScript(concatenated) + "})";
 
-	R_FunctionWhiteList::scriptIsSafe(filter64); //can throw filterExceptions
+	rbridge_checkRWhitelist(filter64); //can throw filterExceptions	
 
 	bool * arrayPointer = nullptr;
 
@@ -906,7 +918,7 @@ std::string rbridge_evalRCodeWhiteListed(const std::string & rCode)
 
 	std::string rCode64("local({" +rbridge_encodeColumnNamesInScript(rCode) + "})");
 
-	try							{ R_FunctionWhiteList::scriptIsSafe(rCode64); }
+	try							{ rbridge_checkRWhitelist(rCode64); }
 	catch(filterException & e)	{ jaspRCPP_setErrorMsg(e.what()); return std::string("R code is not safe because of: ") + e.what();	}
 
 
@@ -924,7 +936,7 @@ bool rbridge_rCodeSafe(const char * rCode)
 {
 	std::string rCode64("local({" +rbridge_encodeColumnNamesInScript(rCode) + "})");
 
-	try							{ R_FunctionWhiteList::scriptIsSafe(rCode64); }
+	try							{ rbridge_checkRWhitelist(rCode64); }
 	catch(filterException & e)	{ return false;	}
 
 	return true;

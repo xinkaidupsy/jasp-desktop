@@ -3,6 +3,14 @@
 
 	//The following functions (and keywords that can be followed by a '(') will be allowed in user-entered R-code, such as filters or computed columns. This is for security because otherwise JASP-files could become a vector of attack and that doesn't refer to an R-datatype.
 const std::set<std::string> R_FunctionWhiteList::functionWhiteList {
+	"if", "while", "repeat", "for", "break", "next", "return", "function",
+	"(", "{",
+	"+", "-", "*", "/", "^", "%%", "%/%", "%*%", ":",
+	"==", "!=", "<", ">", "<=", ">=",
+	"&", "|", "&&", "||", "!",
+	"<-", "<<-", "=", //Should we allow <<-?
+	"$", "[", "[[",
+	"$<-", "[<-", "[[<-",
 	"AIC",
 	"Arg",
 	"Conj",
@@ -45,7 +53,7 @@ const std::set<std::string> R_FunctionWhiteList::functionWhiteList {
 	"coef",
 	"colMeans",
 	"colSums",
-	"colsum",
+	//"colsum",
 	"convolve",
 	"cor",
 	"cos",
@@ -104,7 +112,7 @@ const std::set<std::string> R_FunctionWhiteList::functionWhiteList {
 	"log10",
 	"logLik",
 	"ls",
-	"ls.srt",
+	//"ls.srt",
 	"match",
 	"matrix",
 	"max",
@@ -221,7 +229,7 @@ const std::set<std::string> R_FunctionWhiteList::functionWhiteList {
 	"dgeom",		"pgeom",		"qgeom",		"rgeom",
 	"dhyper",		"phyper",		"qhyper",		"rhyper",
 	"dlnorm",		"plnorm",		"qlnorm",		"rlnorm",
-	"dmultinom",	"pmultinom",	"qmultinom",	"rmultinom",
+	"dmultinom",	/*"pmultinom",	"qmultinom",*/	"rmultinom",
 	"dnbinom",		"pnbinom",		"qnbinom",		"rnbinom",
 	"dnorm",		"pnorm",		"qnorm",		"rnorm",
 	"dpois",		"ppois",		"qpois",		"rpois",
@@ -238,7 +246,7 @@ const std::set<std::string> R_FunctionWhiteList::functionWhiteList {
 	"dwilcox",
 	"switch"
 #ifdef JASP_DEBUG
-	,"Sys.sleep", ".crashPlease", "stringi::stri_enc_mark", "stringi::stri_enc_toutf8", "Encoding"
+	,"Sys.sleep", ".crashPlease", /*"stringi::stri_enc_mark", "stringi::stri_enc_toutf8",*/ "Encoding"
 #endif
 	};
 
