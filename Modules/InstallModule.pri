@@ -161,7 +161,7 @@ isEmpty(MODULE_NAME) {
 			}
 
 		#Create $${MODULE_NAME}.mo translation file. (Need to add GETTEXT location to PATH environment.)
-		GenerateLanguageFiles$${MODULE_NAME}.commands +=  Rscript $$PWD/../Tools/translate.R $$PWD/$${MODULE_NAME} ;
+		GenerateLanguageFiles$${MODULE_NAME}.commands +=  \"$$R_EXE\" -e \"rootfolder <- \'$$PWD/$${MODULE_NAME}\';  source(\'$$PWD/../Tools/translate.R\');\"
 	}#Unix
 	}#########################################################
 
