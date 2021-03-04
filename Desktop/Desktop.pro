@@ -219,23 +219,7 @@ $$GENERATE_LANGUAGE_FILES {
 	
 		for(LANGUAGE_CODE, SUPPORTED_LANGUAGES) {
 			maketranslations.commands += $$quote(echo "Generating language File: $${LANGUAGE_CODE}" ;) 
-			
-			#Initialize QML jaspDesktop-xx.po from previous language files
-			#!exists($$SOURCES_TRANSLATIONS/jaspDesktop-$${LANGUAGE_CODE}.po){
-			#	maketranslations.commands += $$quote(echo "INITIALIZE JASPDESKTOP FILES WITH MSGMERGE: $${LANGUAGE_CODE} ;")
-			#	maketranslations.commands += lupdate -locations none -extensions cpp,qml -recursive $$PWD -ts $$SOURCES_TRANSLATIONS/jaspDesktop-$${LANGUAGE_CODE}.po ;
-			#	maketranslations.commands += msgmerge $$SOURCES_TRANSLATIONS/jasp_$${LANGUAGE_CODE}.po $$SOURCES_TRANSLATIONS/jaspDesktop.pot > $$SOURCES_TRANSLATIONS/jaspDesktop-$${LANGUAGE_CODE}.po ;
-			#	maketranslations.commands += msgattrib --no-obsolete --no-location $$SOURCES_TRANSLATIONS/jaspDesktop-$${LANGUAGE_CODE}.po -o $$SOURCES_TRANSLATIONS/jaspDesktop-$${LANGUAGE_CODE}.po ;
-			#}
-	
-			#Initialize R jaspBase-xx.po from previous language files (R in jaspBase is now a subset of pre-Modules all R)
-			#!exists($$PWD/../Engine/jaspBase/po/jaspBase-$${LANGUAGE_CODE}.po){
-			#	maketranslations.commands += $$quote(echo "INITIALIZE R-TRANSLATION-FILES FOR jaspBase WITH MSGMERGE: $${LANGUAGE_CODE}");
-			#	maketranslations.commands += Rscript $$PWD/../Tools/translate.R $$PWD/../Engine/jaspBase ;						
-			#	maketranslations.commands += msgmerge $$PWD/../Engine/jaspBase/po/R-$${LANGUAGE_CODE}.po.0.14.1 $$PWD/../Engine/jaspBase/po/R-jaspBase.pot > $$PWD/../Engine/jaspBase/po/R-$${LANGUAGE_CODE}.po ;			
-			#	maketranslations.commands += msgattrib --no-obsolete --no-location $$PWD/../Engine/jaspBase/po/R-$${LANGUAGE_CODE}.po -o $$PWD/../Engine/jaspBase/po/R-$${LANGUAGE_CODE}.po ;
-			#}
-	
+
 			#Update and Cleanup QML .po file
 			maketranslations.commands += lupdate -locations none -extensions cpp,qml -recursive $$PWD -ts $$SOURCES_TRANSLATIONS/jaspDesktop-$${LANGUAGE_CODE}.po ;
 			maketranslations.commands += msgattrib --no-obsolete --no-location $$SOURCES_TRANSLATIONS/jaspDesktop-$${LANGUAGE_CODE}.po -o $$SOURCES_TRANSLATIONS/jaspDesktop-$${LANGUAGE_CODE}.po ;
@@ -246,10 +230,8 @@ $$GENERATE_LANGUAGE_FILES {
 		}#Loop over languages
 		
 		#Create jaspBase.mo translation files. (Need to add GETTEXT location to PATH environment.)
-		maketranslations.commands +=  Rscript $$PWD/../Tools/translate.R $$PWD/../Engine/jaspBase ;	
-	
-		#Create jaspGraphs.mo translation files. 
-		maketranslations.commands +=  Rscript $$PWD/../Tools/translate.R $$PWD/../Engine/jaspGraphs ;		
+		maketranslations.commands +=  \"$$R_EXE\" -e \"rootfolder <- \'$$PWD/../Engine/jaspBase\';    source(\'$$PWD/../Tools/translate.R\');\"
+		maketranslations.commands +=  \"$$R_EXE\" -e \"rootfolder <- \'$$PWD/../Engine/jaspGraphs\';  source(\'$$PWD/../Tools/translate.R\');\"
 	
 		#Copy to Resources
 		maketranslations.commands += cp $$RESOURCES_TRANSLATIONS/*.qm $$RESOURCES_DESTINATION_TRANSLATIONS/ ;
