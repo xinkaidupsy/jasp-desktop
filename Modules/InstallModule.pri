@@ -129,7 +129,7 @@ isEmpty(MODULE_NAME) {
 		}
 
 		#Update and Cleanup QML-$${MODULE_NAME}.pot file
-		GenerateLanguageFiles$${MODULE_NAME}.commands += export PATH=$$EXTENDED_PATH; $$escape_expand(\\n\\t)
+		GenerateLanguageFiles$${MODULE_NAME}.commands += export PATH=$$EXTENDED_PATH;  export JASP_R_HOME=$$_R_HOME; $$escape_expand(\\n\\t)
 		GenerateLanguageFiles$${MODULE_NAME}.commands += lupdate -locations none -extensions cpp,qml -recursive $$PWD/$${MODULE_NAME} -ts $$PWD/$${MODULE_NAME}/po/QML-$${MODULE_NAME}.pot ; $$escape_expand(\\n\\t)
 		GenerateLanguageFiles$${MODULE_NAME}.commands += msgattrib --no-obsolete --no-location $$PWD/$${MODULE_NAME}/po/QML-$${MODULE_NAME}.pot -o $$PWD/$${MODULE_NAME}/po/QML-$${MODULE_NAME}.pot ; $$escape_expand(\\n\\t)
 

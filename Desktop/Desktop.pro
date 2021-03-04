@@ -213,7 +213,7 @@ $$GENERATE_LANGUAGE_FILES {
 	unix { ######################## Unix language files ##################################
 			
 		#Update and  Cleanup .pot file
-		maketranslations.commands += export PATH=$$EXTENDED_PATH;
+		maketranslations.commands += export PATH=$$EXTENDED_PATH; export JASP_R_HOME=$$_R_HOME;
 		maketranslations.commands += lupdate -locations none -extensions cpp,qml -recursive $$PWD -ts $$SOURCES_TRANSLATIONS/jaspDesktop.pot ;   
 		maketranslations.commands += msgattrib --no-obsolete --no-location $$SOURCES_TRANSLATIONS/jaspDesktop.pot -o $$SOURCES_TRANSLATIONS/jaspDesktop.pot ;
 	
