@@ -1,8 +1,7 @@
 #Create the R-nl language files
 
-if(!exists(rootfolder))
+if(!exists("rootfolder"))
 {
-
 	args <- commandArgs(trailingOnly = TRUE)
 	
 	if (length(args)!=1) {
