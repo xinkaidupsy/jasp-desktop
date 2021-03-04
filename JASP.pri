@@ -133,7 +133,7 @@ GETTEXT_LOCATION = $$(GETTEXT_PATH) #The GETTEXT_PATH can be used as environment
 
 unix {
 	isEmpty(GETTEXT_LOCATION): GETTEXT_LOCATION=/usr/local/bin
-	EXTENDED_PATH = $$(PATH):$$GETTEXT_LOCATION:$$_R_HOME:$$dirname(QMAKE_QMAKE)
+	EXTENDED_PATH = $$(PATH):$$GETTEXT_LOCATION:$$_R_HOME:$$_R_HOME/bin:$$dirname(QMAKE_QMAKE)
 }
 
 win32 {
