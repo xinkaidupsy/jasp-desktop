@@ -76,9 +76,10 @@ DataSet *SharedMemory::retrieveDataSet(unsigned long parentPID)
 
 DataSet *SharedMemory::enlargeDataSet(DataSet *)
 {
-	size_t extraSize = _memory->get_size();
+	//Lets try to increase memory size by just increments of 100MB when already using that much. Instead of exponential increase
+	size_t extraSize = std::min(_memory->get_size(), size_t(100 * 1024 * 1024));
 
-	Log::log() << "SharedMemory::enlargeDataSet to " << extraSize << std::endl;
+	Log::log() << "SharedMemory::enlargeDataSet by " << extraSize << std::endl;
 
 	delete _memory;
 

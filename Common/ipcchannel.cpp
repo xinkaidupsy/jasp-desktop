@@ -177,7 +177,7 @@ void IPCChannel::rebindMemoryInIfSizeChanged()
 
 void IPCChannel::doubleMemoryOut()
 {
-	Log::log() << "IPCChannel::doubleMemoryOut is called and new memsize: ";
+	Log::log() << "IPCChannel::doubleMemoryOut is called and new memsize: " << std::flush;
 
 	std::string memOutName = _isSlave ? _nameStM : _nameMtS;
 
@@ -194,7 +194,7 @@ void IPCChannel::doubleMemoryOut()
 	_dataOut	= _memoryOut->construct<String>(_dataOutName.c_str())(_memoryOut->get_segment_manager());
 	*_sizeOut	= _memoryOut->get_size();
 
-	Log::log() << *_sizeOut << "\n" << std::flush;
+	Log::log(false) << *_sizeOut << std::endl;
 }
 
 void IPCChannel::send(string &&data, bool alreadyLockedMutex)
