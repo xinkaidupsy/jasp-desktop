@@ -91,12 +91,13 @@ void RibbonButton::setReady(bool ready)
 	emit readyChanged(_ready);
 }
 
-RibbonButton::RibbonButton(QObject *parent,	std::string name, std::string title, std::string icon, bool requiresData, std::function<void ()> justThisFunction)
+RibbonButton::RibbonButton(QObject *parent,	std::string name, std::string title, std::string icon, bool requiresData, std::function<void ()> justThisFunction, std::string toolTip)
 	: QObject(parent), _module(nullptr), _specialButtonFunc(justThisFunction)
 {
 	_analysisMenuModel = new AnalysisMenuModel(this, nullptr);
 	setModuleName(name);
 	setTitle(title);
+	setToolTip(tq(toolTip));
 	setIconSource(tq(icon));
 
 	setRequiresData(requiresData); //setRequiresData because setMenu changes it based on the menu entries, but that doesnt work for this special dummy
