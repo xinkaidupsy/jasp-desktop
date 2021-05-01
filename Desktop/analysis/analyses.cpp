@@ -745,7 +745,9 @@ void Analyses::prepareForLanguageChange()
 	applyToAll([&](Analysis * a)
 	{ 
 		a->setRefreshBlocked(true); 
-		a->abort();
+		
+		if(!a->isFinished())
+			a->abort();
 	});
 }
 
@@ -759,6 +761,22 @@ void Analyses::languageChangedHandler()
 	});
 	refreshAllAnalyses();
 	emit setResultsMeta(tq(_resultsMeta.toStyledString()));
+}
+
+void Analyses::dataModeChanged(bool dataMode)
+{
+	Log::log() << "Data mode turned " << (dataMode ? "on so blocking" : "off so unblocking") << " refresh of analyses." << std::endl;
+
+	applyToAll([&](Analysis * a) 
+	{
+		a->setRefreshBlocked(dataMode);	
+		
+		if(dataMode && !a->isFinished())
+			a->abort();
+	});
+	
+	if(!dataMode)
+		refreshAllAnalyses();
 }
 
 void Analyses::resultsMetaChanged(QString json)

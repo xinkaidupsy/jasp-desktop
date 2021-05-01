@@ -313,7 +313,6 @@ void EngineSync::computeColumn(const QString & columnName, const QString & compu
 
 void EngineSync::processFilterScript()
 {
-
 	if (!_waitingFilter)
 		return;
 
@@ -599,6 +598,8 @@ void EngineSync::pauseEngines()
 {
 	JASPTIMER_SCOPE(EngineSync::pauseEngines);
 
+	Log::log() << "EngineSync::pauseEngines()" << std::endl;
+
 	if(!_engineStarted) return;
 
 	//make sure we process any received messages first.
@@ -622,6 +623,8 @@ void EngineSync::pauseEngines()
 void EngineSync::resumeEngines()
 {
 	JASPTIMER_SCOPE(EngineSync::resumeEngines);
+
+	Log::log() << "EngineSync::resumeEngines()" << std::endl;
 
 	if(!_engineStarted)
 		return;
@@ -672,6 +675,13 @@ bool EngineSync::allEnginesInitializing()
 		if(!engine->initializing())
 			return false;
 	return true;
+}
+
+void EngineSync::dataModeChanged(bool dataMode)
+{
+	/*Log::log() << "Data mode turned " << (dataMode ? "on so stopping" : "off so restarting") << " engines." << std::endl;
+	if(dataMode)	pauseEngines();
+	else			resumeEngines();*/
 }
 
 void EngineSync::moduleLoadingFailedHandler(const QString & moduleName, const QString & errorMessage, int channelID)
