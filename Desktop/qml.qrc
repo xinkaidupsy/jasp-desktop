@@ -148,5 +148,7 @@
         <file>components/JASP/Widgets/ImageInverter.vert</file>
         <file>components/JASP/Widgets/ImageInverter.frag.qsb</file>
         <file>components/JASP/Widgets/ImageInverter.vert.qsb</file>
+        <file>components/JASP/Widgets/ResizeDataDialog.qml</file>
+        <file>components/JASP/Widgets/RenameColumnDialog.qml</file>
     </qresource>
 </RCC>
