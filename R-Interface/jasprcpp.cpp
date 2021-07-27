@@ -206,7 +206,7 @@ void STDCALL jaspRCPP_junctionHelper(bool collectNotRestore, const char * folder
 	
 	rinside->parseEvalQNT("source('symlinkTools.R')");
 	
-	rInside["symFolder"] = folder;
+	rInside["symFolder"] = Rf_ScalarString(Rf_mkCharCE(folder, CE_UTF8));
 	
 	if(collectNotRestore)	rinside->parseEvalQNT("collectAndStoreJunctions(symFolder)");
 	else					rinside->parseEvalQNT("restoreModulesIfNeeded(  symFolder)");
