@@ -296,7 +296,7 @@ int STDCALL jaspRCPP_runFilter(const char * filterCode, bool ** arrayPointer)
 	jaspRCPP_logString("jaspRCPP_runFilter runs: \n\"" + std::string(filterCode) + "\"\n" );
 
 	lastErrorMessage = "";
-	rinside->instance()[".filterCode"] = CSTRING_TO_R(filterCode);
+	rinside->instance()[".filterCode"] = CSTRING_TO_R_UTF8(filterCode);
 
 	const std::string filterTryCatch(
 		"returnVal = 'null'; \n"
@@ -412,7 +412,7 @@ const char*	STDCALL jaspRCPP_evalRCode(const char *rCode, bool setWd) {
 	jaspRCPP_logString(std::string("jaspRCPP_evalRCode runs: \n\"") + rCode + "\"\n" );
 
 	lastErrorMessage = "";
-	rinside->instance()[".rCode"] = CSTRING_TO_R(rCode);
+	rinside->instance()[".rCode"] = CSTRING_TO_R_UTF8(rCode);
 	const std::string rCodeTryCatch(""
 		"returnVal = 'null';	"
 		"tryCatch("
