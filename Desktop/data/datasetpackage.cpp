@@ -210,8 +210,9 @@ QModelIndex DataSetPackage::index(int row, int column, const QModelIndex &parent
 			Log::log() << "Got a valid parent in DataSetPackage::index but it isn't one of the `*Root`s" << std::endl;
 			break;
 		}
-			
 	}
+	
+	return createIndex(row, column, pointer);
 }
 
 const DataSetPackage::intnlPntPair * DataSetPackage::getInternalPointerPairFromIndex(const QModelIndex & index) const
@@ -333,7 +334,6 @@ int DataSetPackage::rowCount(const QModelIndex & parent) const
 
 	case parIdxType::filter:	[[fallthrough]];
 	default:					[[fallthrough]];
-	case parIdxType::root:		[[fallthrough]]; 
 	case parIdxType::data:		return !_dataSet ? 0 : _dataSet->rowCount();
 	}
 
@@ -1635,7 +1635,7 @@ void DataSetPackage::unicifyColumnNames()
 
 void DataSetPackage::resizeData(size_t rows, size_t cols)
 {
-	auto	namesBefore = tql(getColumnNames(false));
+	auto	namesBefore = tq(getColumnNames(false));
 	bool	rowsChanged = int(rows) != rowCount(),
 			newCols		= int(cols) >  columnCount(),
 			newRows		= int(rows) >  rowCount();
