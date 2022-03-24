@@ -21,7 +21,7 @@ fi
 
 if [ -z "$QT_VERSION" ]
 then
-QT_VERSION=6.2.3
+QT_VERSION=6.2.4
 fi
 
 echo "Using QT_DIR $QT_DIR, QT_VERSION $QT_VERSION and QT_KIT $QT_KIT"
